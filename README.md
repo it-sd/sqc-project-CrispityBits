@@ -9,3 +9,6 @@ My project will be a web app that takes in an arists name and finds songs by tha
 I will be using the Spotify web service: (Spotify) [https://developer.spotify.com/documentation/web-api/] Using OAuth
 
 Render: Render (Web Service) [https://render-web-service-lpui.onrender.com]
+
+
+4. skusmirek can handle rejection.

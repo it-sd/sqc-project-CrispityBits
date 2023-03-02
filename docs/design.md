@@ -3,3 +3,7 @@ I would like my site to be very simple as to direct the user to do only the thin
 
 ### Second design hueristic: Recognization over recall
 I want to make it so that anything that the user has typed in the past shows up as results on the side, so that rather than having to type it again the user can see the past results. I would like this to bump up my usability, as it would reduce the amount of time the user has to spend typing.
+
+### Typography
+I think I'm going to try and stick to bold and simple fonts, and use no more than 2-3. This will keep my website much more concise and usable.
+![Color palette] (/images/FinalColorPalette.png)

@@ -7,8 +7,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 #welcome {
-  padding-bottom: 4em;
+  margin-bottom: 8em;
+
 }

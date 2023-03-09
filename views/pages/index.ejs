@@ -51,7 +51,7 @@
 
         <input style="margin: 3em 0 0 9em;" class="center" id="searchBar" type="text" placeholder="Search..">
 
-        <p id="output"></p>
+        <p id="output">&nbsp;</p> <!--Added space so the page doesn't jump when searching-->
       </div>
 
       <div class="w3-half">
@@ -85,6 +85,13 @@
     var captionText = document.getElementById("caption");
     captionText.innerHTML = element.alt;
   }
+
+  // Checking Valid input
+  const searchInput  = document.getElementById("searchBar")
+  const outputText = document.getElementById("output")
+  searchInput.addEventListener("input", function() {
+    if(this.value === "") {outputText.innerHTML = "Expected Input in Search"} else {outputText.innerHTML = "&nbsp;"}
+  });
   </script>
 
 </body>

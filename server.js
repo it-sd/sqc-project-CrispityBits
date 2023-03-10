@@ -1,10 +1,20 @@
+// import fetch from 'node-fetch'
+
 require('dotenv').config() // Read environment variables from .env
 const express = require('express')
+const fetch = require("node-fetch");
 const path = require('path')
+const mime = require('mime');
 const PORT = process.env.PORT || 5163
 
 express()
-  .use(express.static(path.join(__dirname, 'public')))
+.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: function(res, path) {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', mime.getType(path));
+    }
+  }
+}))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .set('views', path.join(__dirname, 'views'))
@@ -12,7 +22,8 @@ express()
 
   // Step 5
    .get('/', function(req, res) {
-    res.render('pages/index')
+    const SPOTIFY_KEY_FROM_ENV = process.env.SPOTIFY_KEY;
+    res.render('pages/index', { SPOTIFY_KEY_FROM_ENV })
    })
 
   // Step 6
@@ -26,4 +37,4 @@ express()
   })
 
 // end of implementation ///////////////////////////////////
-  .listen(PORT, () => console.log(`Listening on ${PORT}`))
+.listen(PORT, () => console.log(`Listening on ${PORT}`))

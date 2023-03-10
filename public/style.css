@@ -1,16 +1,22 @@
-* {
-  margin: 0 auto;
-  background-color: aliceblue;
+.searchContent {
+  font-family: 'MS Comic Sanse';
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+#artistOutput {
+  font-family: 'MS Comic Sanse';
+  font-size: larger;
+  letter-spacing: .15em;
+  line-height: 1.75em;
 }
 
-#welcome {
-  margin-bottom: 8em;
+#searchButton {
+  padding: 1em;
+  font-size: large;
+  background-color: darkcyan;
+  color: ghostwhite;
+}
 
+#searchBar {
+  font-size: large;
+  padding: .1em;
 }

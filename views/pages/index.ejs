@@ -1,5 +1,4 @@
 <%- include('partials/header.ejs') %>
-
 <!-- <div>
   <p id="welcomeTag" class="center">Welcome to my final project! This is me attempting to make something somewhat functional.</p>
 
@@ -42,22 +41,19 @@
     
     <!-- Photo grid (modal) -->
     <div class="w3-row-padding">
-      <div class="w3-half">
-        <!-- <img src="/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
-        <img src="/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandinavian design">
-        <img src="/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> -->
+      <div class="w3-half searchContent">
 
-        <p id="welcomeTag" class="center">Welcome to my final project! This is me attempting to make something somewhat functional.</p>
+        <p id="welcomeTag" class="center">Welcome to my final project! <br>To search, type in your artist's name. <br>To the right, it will display the artists top ten songs, along with each song's popularity ranking.</p>
 
-        <input style="margin: 3em 0 0 9em;" class="center" id="searchBar" type="text" placeholder="Search..">
-
+        <input class="center" id="searchBar" type="text" placeholder="Search...">
+        <button onclick="getArtistsTopSongs()" type="button" id="searchButton">Find Top Songs</button>
         <p id="output"></p>
       </div>
 
-      <div class="w3-half">
-        <!-- <img src="/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
-        <img src="/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-        <img src="/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandinavian design"> -->
+      <div class="w3-half" id="artistOutputDiv">
+        <p id="artistOutput">
+          
+        </p>
       </div>
     </div>
   <!-- End page content -->
@@ -87,4 +83,76 @@
   }
   </script>
 
+  <script>
+      function getArtistsTopSongs() {
+    console.log("You made it to the function.")
+    // Code to get an access token
+    const SPOTIFY_CLIENT_ID = "ddfda215efb344e6a00f7fcbcd20fa8b";
+    const SPOTIFY_KEY = '<%= SPOTIFY_KEY_FROM_ENV %>';
+    console.log(SPOTIFY_KEY)
+    let access_token
+    let return_message
+
+    // Grab the text from the search bar
+    searchBar = document.querySelector("#searchBar")
+    artist = searchBar.value
+    
+    // Request an access token
+    fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_KEY}`)}`,
+      },
+      body: 'grant_type=client_credentials',
+    })
+      .then(response => response.json())
+      .then(data => {
+        access_token = data.access_token;
+    
+        // Use the access token to search for an artist
+        const params = new URLSearchParams({
+          q: artist,
+          type: 'artist',
+        });
+    
+        return fetch(`https://api.spotify.com/v1/search?${params}`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+      })
+      .then(response => response.json())
+      .then(data => {
+        const artist_id = data.artists.items[0].id;
+    
+        // Use the access token and artist ID to get the top tracks
+        const params = new URLSearchParams({
+          country: 'US',
+        });
+    
+        return fetch(`https://api.spotify.com/v1/artists/${artist_id}/top-tracks?${params}`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+      })
+      .then(response => response.json())
+      .then(data => {
+        return_message = artist + "'s top tracks are: <br>|------------------------------------------|<br>";
+    
+        // Loop through the top tracks and print their names and popularity
+        for (const track of data.tracks) {
+          const track_name = track.name;
+          const track_popularity = track.popularity;
+    
+          return_message += `${track_name} &nbsp&nbsp&nbsp(Popularity: ${track_popularity})<br>`;
+          console.log(`${track_name} (Popularity: ${track_popularity})`);
+
+          outputTag = document.querySelector("#artistOutput")
+          outputTag.innerHTML = return_message
+        }
+      });
+  }
+  </script>
 </body>

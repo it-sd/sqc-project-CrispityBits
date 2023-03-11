@@ -20,3 +20,10 @@
   font-size: large;
   padding: .1em;
 }
+
+#recent-artists {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10em 25em 0 0;
+}

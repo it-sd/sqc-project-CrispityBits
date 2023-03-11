@@ -4,7 +4,7 @@
 
   <input class="center" id="searchBar" type="text" placeholder="Search..">
 </div> -->
-<body>
+<body onload="getPastArtists()">
   
 
   <!-- Sidebar/menu -->
@@ -55,6 +55,10 @@
           
         </p>
       </div>
+      <div id="recent-artists">
+        The past searched artists are: <br>
+      </div>
+      <button onclick="getPastArtists()">Get Past Artists</button>
     </div>
   <!-- End page content -->
   </div>
@@ -83,8 +87,9 @@
   }
   </script>
 
-  <script>
-      function getArtistsTopSongs() {
+  <script> 
+      let artist = ""
+  function getArtistsTopSongs() {
     console.log("You made it to the function.")
     // Code to get an access token
     const SPOTIFY_CLIENT_ID = "ddfda215efb344e6a00f7fcbcd20fa8b";
@@ -94,7 +99,7 @@
     let return_message
 
     // Grab the text from the search bar
-    searchBar = document.querySelector("#searchBar")
+    const searchBar = document.querySelector("#searchBar")
     artist = searchBar.value
     
     // Request an access token
@@ -154,5 +159,41 @@
         }
       });
   }
+
+  const searchButton = document.querySelector("#searchButton")
+
+  searchButton.addEventListener("click", () => {
+      // Send an HTTP request to the server to add the artist to the database
+      fetch(`/add-artist`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: artist })
+        })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+        });
+
+        getPastArtists()
+    });
+
+      // Send an HTTP request to the server to get the last 5 artists added to the database
+function getPastArtists() {
+        console.log("made it to getPastArtists")
+
+          fetch('/get-past-five-artists')
+          .then(response => response.json())
+          .then(data => {
+            const recentArtistsDiv = document.getElementById('recent-artists');
+            let returnPastArtists = "The past artists are: <br>"
+            data.forEach(artist => {
+              returnPastArtists += `- ${artist.name}<br>`
+            });
+            recentArtistsDiv.innerHTML = returnPastArtists
+          });
+}
+      getArtistsTopSongs()
   </script>
 </body>

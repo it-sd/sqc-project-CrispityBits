@@ -164,7 +164,7 @@
   console.log("You made it to the function.")
   // Code to get an access token
   const SPOTIFY_CLIENT_ID = "ddfda215efb344e6a00f7fcbcd20fa8b";
-  const SPOTIFY_KEY = '<%= process.env.SPOTIFY_KEY %>';
+  const SPOTIFY_KEY = '4ed85a63955440d9bd7c9277db8b5e2e';
   console.log(SPOTIFY_KEY)
   let access_token
   let return_message
@@ -182,7 +182,11 @@
     },
     body: 'grant_type=client_credentials',
   })
-    .then(response => response.json())
+    .then(response =>  {if (!response.ok) {
+      throw new Error('Failed to get access token from Spotify API');
+    }
+    return response.json();
+    })
     .then(data => {
       access_token = data.access_token;
 
@@ -198,7 +202,12 @@
         },
       });
     })
-    .then(response => response.json())
+    .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to search for artist from Spotify API');
+    }
+    return response.json();
+    })
     .then(data => {
       const artist_id = data.artists.items[0].id;
 
@@ -213,7 +222,12 @@
         },
       });
     })
-    .then(response => response.json())
+    .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to get top tracks from Spotify API');
+    }
+    return response.json();
+    })
     .then(data => {
       return_message = artist + "'s top tracks are: <br>|------------------------------------------|<br>";
 

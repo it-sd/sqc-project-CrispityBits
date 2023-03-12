@@ -93,7 +93,7 @@
     console.log("You made it to the function.")
     // Code to get an access token
     const SPOTIFY_CLIENT_ID = "ddfda215efb344e6a00f7fcbcd20fa8b";
-    const SPOTIFY_KEY = '<%= SPOTIFY_KEY_FROM_ENV %>';
+    const SPOTIFY_KEY = '<%= process.env.SPOTIFY_KEY %>';
     console.log(SPOTIFY_KEY)
     let access_token
     let return_message
@@ -194,6 +194,5 @@ function getPastArtists() {
             recentArtistsDiv.innerHTML = returnPastArtists
           });
 }
-      getArtistsTopSongs()
   </script>
 </body>

@@ -4,7 +4,9 @@
 
   <input class="center" id="searchBar" type="text" placeholder="Search..">
 </div> -->
-<body">
+<body>
+  <script src="../../spec/tests.spec.js"></script>
+
   
 
   <!-- Sidebar/menu -->
@@ -89,77 +91,7 @@
 
   <script> 
       let artist = ""
-  // function getArtistsTopSongs() {
-  //   console.log("You made it to the function.")
-  //   // Code to get an access token
-  //   const SPOTIFY_CLIENT_ID = "ddfda215efb344e6a00f7fcbcd20fa8b";
-  //   const SPOTIFY_KEY = '<%= process.env.SPOTIFY_KEY %>';
-  //   console.log(SPOTIFY_KEY)
-  //   let access_token
-  //   let return_message
-
-  //   // Grab the text from the search bar
-  //   const searchBar = document.querySelector("#searchBar")
-  //   artist = searchBar.value
-    
-  //   // Request an access token
-  //   fetch('https://accounts.spotify.com/api/token', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded',
-  //       Authorization: `Basic ${btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_KEY}`)}`,
-  //     },
-  //     body: 'grant_type=client_credentials',
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       access_token = data.access_token;
-    
-  //       // Use the access token to search for an artist
-  //       const params = new URLSearchParams({
-  //         q: artist,
-  //         type: 'artist',
-  //       });
-    
-  //       return fetch(`https://api.spotify.com/v1/search?${params}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${access_token}`,
-  //         },
-  //       });
-  //     })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       const artist_id = data.artists.items[0].id;
-    
-  //       // Use the access token and artist ID to get the top tracks
-  //       const params = new URLSearchParams({
-  //         country: 'US',
-  //       });
-    
-  //       return fetch(`https://api.spotify.com/v1/artists/${artist_id}/top-tracks?${params}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${access_token}`,
-  //         },
-  //       });
-  //     })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       return_message = artist + "'s top tracks are: <br>|------------------------------------------|<br>";
-    
-  //       // Loop through the top tracks and print their names and popularity
-  //       for (const track of data.tracks) {
-  //         const track_name = track.name;
-  //         const track_popularity = track.popularity;
-    
-  //         return_message += `${track_name} &nbsp&nbsp&nbsp(Popularity: ${track_popularity})<br>`;
-  //         console.log(`${track_name} (Popularity: ${track_popularity})`);
-
-  //         outputTag = document.querySelector("#artistOutput")
-  //         outputTag.innerHTML = return_message
-  //       }
-  //     });
-  // }
-
+ 
   function getArtistsTopSongs() {
   console.log("You made it to the function.")
   // Code to get an access token

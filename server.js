@@ -121,3 +121,10 @@ server.on('close', () => {
     console.log('Closed the database connection');
   });
 });
+
+function addTwoNumbers(number1, number2) {
+  finalOutput = number1 + number2
+  return finalOutput
+}
+
+module.exports = { addTwoNumbers }

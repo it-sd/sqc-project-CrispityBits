@@ -278,6 +278,7 @@ function getPastArtists() {
             data.forEach(artist => {
               returnPastArtists += `- ${artist.name}<br>`
             });
+            console.log(returnPastArtists)
             recentArtistsDiv.innerHTML = returnPastArtists
           });
 }
